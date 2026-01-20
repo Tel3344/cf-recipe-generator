@@ -1,1 +1,204 @@
-
+{
+  "name": "食刻智能菜谱",
+  "short_name": "食刻菜谱",
+  "description": "智能菜谱推荐系统，根据时令、人数和口味偏好自动推荐营养均衡的菜单",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "scope": "/",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#2E8B57",
+  "background_color": "#F8FFF8",
+  "categories": ["food", "lifestyle", "productivity"],
+  "icons": [
+    {
+      "src": "icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "生成今日菜单",
+      "short_name": "今日菜单",
+      "description": "智能生成今日推荐菜单",
+      "url": "/?action=generate",
+      "icons": [
+        {
+          "src": "icons/shortcut-generate-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "查看我的收藏",
+      "short_name": "我的收藏",
+      "description": "查看收藏的菜谱",
+      "url": "/#我的收藏",
+      "icons": [
+        {
+          "src": "icons/shortcut-favorites-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "购物清单",
+      "short_name": "购物车",
+      "description": "查看购物清单",
+      "url": "/#购物车",
+      "icons": [
+        {
+          "src": "icons/shortcut-cart-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "添加新菜谱",
+      "short_name": "添加菜谱",
+      "description": "贡献新菜谱到数据库",
+      "url": "/?action=add",
+      "icons": [
+        {
+          "src": "icons/shortcut-add-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/desktop-1280x800.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "桌面端主界面"
+    },
+    {
+      "src": "screenshots/mobile-375x667.png",
+      "sizes": "375x667",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "移动端菜单生成"
+    },
+    {
+      "src": "screenshots/mobile-recipe-375x667.png",
+      "sizes": "375x667",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "移动端菜谱详情"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "protocol_handlers": [
+    {
+      "protocol": "web+recipe",
+      "url": "/recipe?id=%s"
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "image",
+          "accept": ["image/*"]
+        }
+      ]
+    }
+  },
+  "file_handlers": [
+    {
+      "action": "/import",
+      "accept": {
+        "application/json": [".json"],
+        "text/plain": [".txt"]
+      },
+      "name": "菜谱数据文件"
+    }
+  ],
+  "launch_handler": {
+    "client_mode": ["auto", "focus-existing"]
+  },
+  "handle_links": "auto",
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "display_override": ["window-controls-overlay", "minimal-ui"],
+  "permissions": [
+    "geolocation",
+    "notifications",
+    "storage",
+    "clipboard-write"
+  ],
+  "featured": {
+    "platform": ["windows", "android", "chromeos"],
+    "category": ["food", "lifestyle"]
+  },
+  "debug": {
+    "enabled": false,
+    "show_errors": true,
+    "log_level": "info"
+  }
+}
