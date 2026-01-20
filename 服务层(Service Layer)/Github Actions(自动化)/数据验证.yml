@@ -1,0 +1,66 @@
+name: 菜谱数据验证
+
+on:
+  push:
+    paths:
+      - '菜谱数据库/**'
+      - '分类索引/**'
+  pull_request:
+    paths:
+      - '菜谱数据库/**'
+      - '分类索引/**'
+  schedule:
+    - cron: '0 2 * * *'  # 每天凌晨2点运行
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v3
+        
+      - name: 设置Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: 安装依赖
+        run: npm ci
+        
+      - name: 验证菜谱数据
+        run: npm run validate
+        
+      - name: 运行测试
+        run: npm test
+        
+      - name: 生成索引
+        run: |
+          node 工具层/管理工具/生成索引.js
+          node 工具层/管理工具/数据统计.js
+        
+      - name: 提交更新
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
+          # 检查是否有变化
+          if git diff --quiet; then
+            echo "没有变化需要提交"
+            exit 0
+          fi
+          
+          git add .
+          git commit -m "自动更新索引和统计数据 [skip ci]"
+          git push
+          
+      - name: 发送通知
+        if: failure()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          channel: '#recipes'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
