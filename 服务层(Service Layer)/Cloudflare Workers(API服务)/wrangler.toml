@@ -1,0 +1,37 @@
+name = "smart-recipe-api"
+type = "javascript"
+account_id = "your-account-id"
+workers_dev = true
+
+# 如果你有自定义域名
+# route = "api.yourdomain.com/*"
+# zone_id = "your-zone-id"
+
+# KV命名空间绑定
+kv_namespaces = [
+  { binding = "RECIPE_CACHE", id = "your-kv-namespace-id" },
+  { binding = "USER_DATA", id = "your-user-data-id" }
+]
+
+# 环境变量
+[vars]
+GITHUB_TOKEN = "@github_token"
+GITHUB_REPO = "your-username/smart-recipe-system"
+API_BASE_URL = "https://api.github.com/repos"
+CACHE_TTL = "3600"
+NODE_ENV = "production"
+
+# 部署配置
+[env.production]
+name = "smart-recipe-api-prod"
+
+[env.staging]
+name = "smart-recipe-api-staging"
+workers_dev = true
+
+# 构建配置
+[build]
+command = "npm install && npm run build"
+
+[build.upload]
+format = "service-worker"
