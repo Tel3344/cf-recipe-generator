@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>菜谱上传工具</title>
+    <style>
+        /* 样式省略，可根据需要添加 */
+    </style>
+</head>
+<body>
+    <h1>菜谱上传工具</h1>
+    <div>
+        <button onclick="showTemplate()">下载模板</button>
+        <button onclick="importJSON()">导入JSON文件</button>
+    </div>
+    <div id="form-container"></div>
+    <script>
+        // 下载模板
+        function showTemplate() {
+            const template = {
+                "菜品名称": "",
+                "菜品分类": [],
+                "适用季节": []
+                // ... 其他字段
+            };
+            const blob = new Blob([JSON.stringify(template, null, 2)], {输入: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '菜谱模板.json';
+            a.click();
+        }
+        
+        // 导入JSON
+        function importJSON() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.文件[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const recipe = JSON.parse(e.target.result);
+                        // 验证并显示表单
+                        showForm(recipe);
+                    } catch (error) {
+                        alert('JSON解析错误: ' + error.message);
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+        
+        function showForm(recipe) {
+            // 动态生成表单，这里简化处理
+            const container = document.getElementById('form-container');
+            container.innerHTML = `
+                <form id="recipe-form">
+                    <div>
+                        <label>菜品名称:</label>
+                        <input type="text" value="${recipe.菜品名称 || ''}">
+                    </div>
+                    <!-- 其他字段 -->
+                    <button type="button" onclick="submitForm()">提交</button>
+                </form>
+            `;
+        }
+        
+        function submitForm() {
+            // 收集表单数据，验证，然后提交到GitHub
+            alert('提交功能需要GitHub API，请根据实际情况实现');
+        }
+    </script>
+</body>
+</html>
