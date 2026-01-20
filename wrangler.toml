@@ -1,0 +1,12 @@
+name = "smart-recipe-api"
+type = "javascript"
+account_id = "your-account-id"
+workers_dev = true
+
+# 如果你的账户下有多个域名，可以指定一个默认的
+# route = "recipes.yourdomain.com/*"
+# zone_id = "your-zone-id"
+
+[vars]
+GITHUB_USER = "你的GitHub用户名"
+GITHUB_REPO = "smart-recipe-database"
